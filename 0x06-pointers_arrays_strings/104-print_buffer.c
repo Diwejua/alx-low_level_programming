@@ -2,54 +2,89 @@
 #include <stdio.h>
 
 /**
- * print_line - prints a s bytes of a buffer
- * @c: buffer to print
- * @s: bytes of buffer to print
- * @l: line of buffer to print
+ * first_func - 1st function needed to run print_buffer
+ * @b: buffer
+ * @k: int
+ * @l: int
+ * @i: int
+ *
  * Return: void
  */
-
-void print_line(char *c, int s, int l)
+void first_func(char *b, int k, int l, int i)
 {
-	int j, k;
-
-	for (j = 0; j <= 9; j++)
+	k = (i / 10) * 10;
+	for (l = k; l <= i; l++)
 	{
-		if (j <= s)
-			printf("%02x", c[l * 10 + j]);
+		if (b[l] >= 32 && b[l] <= 126)
+			putchar(b[l]);
 		else
-			printf(" ");
-		if (j % 2)
-			putchar(' ');
+			putchar('.');
 	}
-	for (k = 0; k <= s; k++)
+
+	putchar(10);
+	printf("%08x: ", i + 1);
+}
+
+/**
+ * sec_func - second function needed to run print_buffer
+ * @b: buffer
+ * @l: int
+ * @l_phase: int
+ * @size: int
+ */
+void sec_func(char *b, int l, int l_phase, int size)
+{
+	for (l = l_phase; l <= (l_phase + ((l_phase + 9) - size)); l++)
 	{
-		if (c[l * 10 + k] > 31 && c[l * 10 + k] < 127)
-			putchar(c[l * 10 + k]);
+		putchar(' ');
+		putchar(' ');
+	}
+	putchar(' ');
+	putchar(' ');
+	for (l = l_phase; l < size; l++)
+	{
+		if (b[l] >= 32 && b[l] <= 126)
+			putchar(b[l]);
 		else
 			putchar('.');
 	}
 }
 
 /**
- * print_buffer - prints a buffer
- * @b: buffer to print
- * @size: size of buffer
+ * print_buffer - prints buffer
+ * @b: buffer
+ * @size: buffer size
+ *
  * Return: void
  */
 void print_buffer(char *b, int size)
 {
-	int i;
+	int i, j, k, l, z;
+	int l_phase;
 
-	for (i = 0; i <= (size - 1) / 10 && size; i++)
+	l_phase = z = (size / 10) * 10;
+	j = 1;
+	l = k = 0;
+
+	for (i = 0; i < size; i++)
 	{
-		printf("%08x: ", i * 10);
-		if (i < size / 10)
+		if (i == 0)
+			printf("%08x: ", i);
+		printf("%02x", b[i]);
+		if (!(j % 2))
+			putchar(' ');
+
+		f (((i % 10 == 9) && i > 0))
 		{
-			print_line(b, 9, i);
+			first_func(b, k, l, i);
 		}
-		putchar('\n');
+		else if (i == size - 1)
+		{
+			sec_func(b, l, l_phase, size);
+		}
+		j++;
 	}
+	putchar('\n');
 	if (size == 0)
 		putchar('\n');
 }
