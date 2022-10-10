@@ -2,13 +2,14 @@
 #define DOG_H
 
 /**
- * struct dog - a dog's basic info
- *  @name: First member
- *  @age: Second member
- *  @owner: Third member
+ * struct dog - a new type describing a dog
+ * @name: Name of the dog
+ * @age: Age of the dog
+ * @owner: Owner of the dog
  *
- *  Description: Longer description
+ * Description: file that defines a new type struct dog
  */
+
 struct dog
 {
 	char *name;
@@ -28,4 +29,4 @@ void free_dog(dog_t *d);
 char *_strcpy(char *dest, char *src);
 int _strlen(char *s);
 
-#endif
+#endif /*DOG_H*/
